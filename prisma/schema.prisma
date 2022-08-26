@@ -12,8 +12,7 @@ datasource db {
 model Question {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
-  email     String   @unique
-  name      String?
+  text String
   
   options     Option[]
 }
@@ -24,7 +23,7 @@ model Option {
   likes Int
   title     String   @db.VarChar(255)
   question    Question?    @relation(fields: [questionId], references: [id])
-  questionId  Int?
+  questionId  Int
 }
 
 
