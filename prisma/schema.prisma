@@ -1,0 +1,31 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model Question {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  email     String   @unique
+  name      String?
+  
+  options     Option[]
+}
+
+model Option {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  likes Int
+  title     String   @db.VarChar(255)
+  question    Question?    @relation(fields: [questionId], references: [id])
+  questionId  Int?
+}
+
+
+
