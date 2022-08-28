@@ -1,8 +1,21 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import { useState } from 'react'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
+  const HandleClick = (e) =>{
+    e.preventDefault()
+    fetch('/api/question/create')
+    .then((res) => res.json())
+    .then((data) => {
+      setData(data)
+      console.log(data)
+    })
+    
+
+  }
+  const [data, setData] = useState([])
   return (
     <div className={styles.container}>
       <Head>
@@ -15,6 +28,7 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
+        <button onClick={HandleClick}>Click Me: {data.name}</button>
 
         <p className={styles.description}>
           Get started by editing{' '}
