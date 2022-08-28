@@ -4,13 +4,13 @@ import styles from '../../styles/Home.module.css'
 import { useRouter } from 'next/router'
 import VoteButton from '../../Components/VoteButton'
 import { useEffect, useState } from 'react'
-import { redirect } from 'next/dist/server/api-utils'
 export default function QuestionPage() {
     const router = useRouter()
     const { id } = router.query
     let input = parseInt(id)
     const [disabled, setDisabled] = useState(false)
     const [question, SetQuestion] = useState('')
+    const [options, SetOptions] = useState([])
 
     useEffect(() => {
         if(!router.isReady){
@@ -19,11 +19,19 @@ export default function QuestionPage() {
         fetch('/api/question/' + input)
             .then((res) => res.json())
             .then((data) => {
+                if(!data){
+                    return
+                }
                
                 SetQuestion(data?.prompt)
-                
+                fetch('/api/option/' + data?.id)
+                .then((res) => res.json())
+                .then((data) =>{
+                    SetOptions(data)
+                    console.log(data)
+                })
             })
-
+        
 
 
     }, [question, router.isReady])
@@ -44,7 +52,16 @@ export default function QuestionPage() {
         setDisabled(true)
 
     }
-    
+    //copies url to clipboard, share poll with friends 
+    const copyToClipboard = () => {
+        const el = document.createElement("input");
+        el.value = window.location.href;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand("copy");
+        document.body.removeChild(el);
+       
+      }
     return (
         <div className={styles.container}>
             <Head>
@@ -55,14 +72,17 @@ export default function QuestionPage() {
 
             <main className={styles.main}>
                 <div className={styles.grid}>
+                    <button onClick={copyToClipboard}>Share</button>
+
                     <h1 className={styles.title}>
                         {question}
                     </h1>
                     
-                    <VoteButton value={1} prompt={"Option 1"} clickInstruction={HandleClick} disabled={disabled} />
-                    <VoteButton value={2} prompt={"Option 2"} clickInstruction={HandleClick} disabled={disabled} />
-                    <VoteButton value={3} prompt={"Option 3"} clickInstruction={HandleClick} disabled={disabled} />
-                    <VoteButton value={4} prompt={"Option 4"} clickInstruction={HandleClick} disabled={disabled} />
+                    {options.map(item=>{
+                       return <VoteButton key={item.id} value={item.id} prompt={item.title} clickInstruction={HandleClick} disabled={disabled}/>
+
+                    })}
+                    
 
 
                 </div>
