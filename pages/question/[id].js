@@ -3,30 +3,48 @@ import Image from 'next/image'
 import styles from '../../styles/Home.module.css'
 import { useRouter } from 'next/router'
 import VoteButton from '../../Components/VoteButton'
-import { useState } from 'react'
-export default function Home() {
+import { useEffect, useState } from 'react'
+import { redirect } from 'next/dist/server/api-utils'
+export default function QuestionPage() {
     const router = useRouter()
     const { id } = router.query
+    let input = parseInt(id)
     const [disabled, setDisabled] = useState(false)
-    
-    const HandleVote = (optionId) =>{
+    const [question, SetQuestion] = useState('')
+
+    useEffect(() => {
+        if(!router.isReady){
+            return
+        }
+        fetch('/api/question/' + input)
+            .then((res) => res.json())
+            .then((data) => {
+               
+                SetQuestion(data?.prompt)
+                
+            })
+
+
+
+    }, [question, router.isReady])
+    const HandleVote = (optionId) => {
         fetch('/api/option/vote/' + optionId,
-        {
-            method: "POST",
-            body: JSON.stringify({data: optionId})
-        })
+            {
+                method: "POST",
+                body: JSON.stringify({ data: optionId })
+            })
 
 
     }
-    const HandleClick =  (e) =>{
+    const HandleClick = (e) => {
         e.preventDefault()
-        
-        const voteData = e.target.value
+
+        const voteData = e.currentTarget.value
         HandleVote(voteData)
         setDisabled(true)
-    
-      }
 
+    }
+    
     return (
         <div className={styles.container}>
             <Head>
@@ -38,13 +56,14 @@ export default function Home() {
             <main className={styles.main}>
                 <div className={styles.grid}>
                     <h1 className={styles.title}>
-                        Question number: {id}
+                        {question}
                     </h1>
-                    <VoteButton value={1} prompt={"Option 1"} clickInstruction={HandleClick} disabled={disabled}/>
-                    <VoteButton value={2} prompt={"Option 2"} clickInstruction={HandleClick} disabled={disabled}/>
-                    <VoteButton value={3} prompt={"Option 3"} clickInstruction={HandleClick} disabled={disabled}/>
-                    <VoteButton value={4} prompt={"Option 4"} clickInstruction={HandleClick} disabled={disabled}/>
                     
+                    <VoteButton value={1} prompt={"Option 1"} clickInstruction={HandleClick} disabled={disabled} />
+                    <VoteButton value={2} prompt={"Option 2"} clickInstruction={HandleClick} disabled={disabled} />
+                    <VoteButton value={3} prompt={"Option 3"} clickInstruction={HandleClick} disabled={disabled} />
+                    <VoteButton value={4} prompt={"Option 4"} clickInstruction={HandleClick} disabled={disabled} />
+
 
                 </div>
 

@@ -1,21 +1,15 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { useState } from 'react'
 import styles from '../styles/Home.module.css'
-
+/* 
+  1. Make dynamic form to account for unknown number of input fields
+  2. Post question, then if successful, post All options
+  3. Get Question and Option Data in question/id page 
+  4.  ^ Set page specific cookie, disable buttons if cookie exists
+  Get Question Page should get information from useeffect because it will update immediately on button click, cannot do that in SSR 
+*/
 export default function Home() {
-  const HandleClick = (e) =>{
-    e.preventDefault()
-    fetch('/api/question/create')
-    .then((res) => res.json())
-    .then((data) => {
-      setData(data)
-      console.log(data)
-    })
-    
-
-  }
-  const [data, setData] = useState([])
+  
   return (
     <div className={styles.container}>
       <Head>
@@ -28,8 +22,7 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
-        <button onClick={HandleClick}>Click Me: {data.name}</button>
-
+        
         <p className={styles.description}>
           Get started by editing{' '}
           <code className={styles.code}>pages/index.js</code>
