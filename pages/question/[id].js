@@ -13,28 +13,41 @@ export default function QuestionPage() {
     const [options, SetOptions] = useState([])
 
     useEffect(() => {
-        if(!router.isReady){
+        if (!router.isReady) {
             return
         }
+        let Interval
         fetch('/api/question/' + input)
             .then((res) => res.json())
             .then((data) => {
-                if(!data){
+                if (!data) {
                     return
                 }
-               
+
                 SetQuestion(data?.prompt)
-                fetch('/api/option/' + data?.id)
-                .then((res) => res.json())
-                .then((data) =>{
-                    SetOptions(data)
-                    console.log(data)
-                })
+                //calls the fetch initially, as not to wait 5 seconds to see options appear 
+                fetchOptions(data.id)
+                Interval = setInterval(() => {
+                    console.log("refetch")
+                    fetchOptions(data.id)
+                }, 5000);
             })
-        
+        //cleans up the interval upon demounting the component 
+        return (() => {
+            clearInterval(Interval)
+        })
 
 
     }, [question, router.isReady])
+    const fetchOptions = (questionId) => {
+        fetch('/api/option/' + questionId)
+            .then((res) => res.json())
+            .then((data) => {
+                SetOptions(data)
+                console.log(data)
+            })
+
+    }
     const HandleVote = (optionId) => {
         fetch('/api/option/vote/' + optionId,
             {
@@ -60,8 +73,8 @@ export default function QuestionPage() {
         el.select();
         document.execCommand("copy");
         document.body.removeChild(el);
-       
-      }
+
+    }
     return (
         <div className={styles.container}>
             <Head>
@@ -77,12 +90,12 @@ export default function QuestionPage() {
                     <h1 className={styles.title}>
                         {question}
                     </h1>
-                    
-                    {options.map(item=>{
-                       return <VoteButton key={item.id} value={item.id} prompt={item.title} clickInstruction={HandleClick} disabled={disabled}/>
+
+                    {options.map(item => {
+                        return <VoteButton likes={item.likes} key={item.id} value={item.id} prompt={item.title} clickInstruction={HandleClick} disabled={disabled} />
 
                     })}
-                    
+
 
 
                 </div>
