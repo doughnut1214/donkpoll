@@ -27,10 +27,12 @@ export default function QuestionPage() {
                 SetQuestion(data?.prompt)
                 //calls the fetch initially, as not to wait 5 seconds to see options appear 
                 fetchOptions(data.id)
+                
                 Interval = setInterval(() => {
                     console.log("refetch")
                     fetchOptions(data.id)
-                }, 5000);
+                }, 3000);
+                
             })
         //cleans up the interval upon demounting the component 
         return (() => {
@@ -49,12 +51,18 @@ export default function QuestionPage() {
 
     }
     const HandleVote = (optionId) => {
-        fetch('/api/option/vote/' + optionId,
+        fetch('/api/option/vote/',
             {
                 method: "POST",
-                body: JSON.stringify({ data: optionId })
+                body: JSON.stringify({ id: optionId })
             })
-
+            .then((res) => res.json())
+            .then((data) => {
+                
+                console.log(data)
+            })
+            //how to call fetch whenever you vote without rerendering options?
+            //fetchOptions(optionId)
 
     }
     const HandleClick = (e) => {
