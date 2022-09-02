@@ -4,9 +4,8 @@ import styles from '../styles/Home.module.css'
 import QuestionForm from '../Components/QuestionForm'
 /* 
   
-  2. Post question, then if successful, post All options
-  3. Get Question and Option Data in question/id page 
-  4.  ^ Set page specific cookie, disable buttons if cookie exists
+  
+  4. Set page specific cookie, disable buttons if cookie exists to prevent voting again after refresh 
   Get Question Page should get information from useeffect because it will update immediately on button click, cannot do that in SSR 
 */
 export default function Home() {
