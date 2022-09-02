@@ -27,9 +27,16 @@ const QuestionForm = () => {
         e.preventDefault()
         console.log("Form Submitted " + question)
         console.log(inputFields)
-        fetch("/api/question/create", {
+        fetch("/api/question/", {
             method: 'POST',
-            body: JSON.stringify(question)
+            body: question
+        }).then(data => data.json())
+        .then(data=>{
+            console.log(data)
+            fetch("/api/option/" + data.id, {
+                method:'POST',
+                body: JSON.stringify(inputFields)
+            })
         })
     }
     const HandleFormChange = (index, event) => {
