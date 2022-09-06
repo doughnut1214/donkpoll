@@ -3,10 +3,9 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import QuestionForm from '../Components/QuestionForm'
 /* 
-  
-  
-  4. Set page specific cookie, disable buttons if cookie exists to prevent voting again after refresh 
-  Get Question Page should get information from useeffect because it will update immediately on button click, cannot do that in SSR 
+  Check if browser is in focus, only refetch data if it is in focus 
+  ^ I think I can use ifvisible.js package for this, but window is undefined because nextjs and server shennanigans 
+  possibly refactor the create question fetch cascade using prisma create many with a nested write, (see comments in QuestionForm) 
 */
 export default function Home() {
   

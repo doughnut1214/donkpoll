@@ -29,12 +29,15 @@ const QuestionForm = () => {
         e.preventDefault()
         console.log("Form Submitted " + question)
         console.log(inputFields)
+        //refactor this, there's a better way to post relational data
+        //see https://www.prisma.io/docs/concepts/components/prisma-client/relation-queries#create-a-single-record-and-multiple-related-records
         fetch("/api/question/", {
             method: 'POST',
             body: question
         }).then(data => data.json())
             .then(data => {
                 console.log(data)
+                //Take the data, set the link, show the link, disable form buttons, then post the options (refactor)
                 SetSubmitButtonDisabled(true)
                 SetQuestionLink(data.id)
                 SetQuestionLinkIsHidden(false)

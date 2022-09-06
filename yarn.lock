@@ -899,6 +899,11 @@
   dependencies:
     "function-bind" "^1.1.1"
 
+"ifvisible.js@^1.0.6":
+  "integrity" "sha512-M1rXfwgIwa2LZyVQRfkKV2denpFtKWmas7yl2H+wPzYu6PKQVtc0LcazXUZMYYtpiGmuMdAVrn46I1lPYpyPng=="
+  "resolved" "https://registry.npmjs.org/ifvisible.js/-/ifvisible.js-1.0.6.tgz"
+  "version" "1.0.6"
+
 "ignore@^5.2.0":
   "integrity" "sha512-CmxgYGiEPCLhfLnpPp1MoRmifwEIOgjcHXxOBjv7mY96c+eWScsOP9c112ZyLdWHi0FxHjI+4uVhKYp/gcdRmQ=="
   "resolved" "https://registry.npmjs.org/ignore/-/ignore-5.2.0.tgz"
