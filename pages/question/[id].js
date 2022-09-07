@@ -153,7 +153,7 @@ export default function QuestionPage() {
                     <button onClick={copyToClipboard}>Share</button>
 
                     <h1 className={styles.title}>
-                        {question}
+                        {question || "Loading..."}
                     </h1>
 
                     {options.map(item => {

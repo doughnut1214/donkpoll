@@ -20,10 +20,11 @@ model Question {
 model Option {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
-  likes Int  
+  likes Int  @default(0)
   title     String   @db.VarChar(255)
   question    Question?    @relation(fields: [questionId], references: [id])
   questionId  Int
+  @@index([questionId])
 }
 
 

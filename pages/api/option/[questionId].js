@@ -32,7 +32,7 @@ export default async function handler(req, res) {
             let newOption = await prisma.option.create({
                 data:{
                     title: field.option,
-                    likes: 0,
+                   
                     question: { connect: { id: input } }
                 }
             })

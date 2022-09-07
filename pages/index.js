@@ -3,12 +3,11 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import QuestionForm from '../Components/QuestionForm'
 /* 
-  Check if browser is in focus, only refetch data if it is in focus 
-  ^ I think I can use ifvisible.js package for this, but window is undefined because nextjs and server shennanigans 
+ 
   possibly refactor the create question fetch cascade using prisma create many with a nested write, (see comments in QuestionForm) 
 */
 export default function Home() {
-  
+
   return (
     <div className={styles.container}>
       <Head>
@@ -21,19 +20,19 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
-        
+       
         <p className={styles.description}>
           Get started by editing{' '}
           <code className={styles.code}>pages/index.js</code>
         </p>
 
+        <QuestionForm />
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
+            <h2>Documentation</h2>
             <p>Find in-depth information about Next.js features and API.</p>
           </a>
 
-          <QuestionForm />
 
           <a
             href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
