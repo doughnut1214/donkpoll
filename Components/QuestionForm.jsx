@@ -57,7 +57,7 @@ const QuestionForm = () => {
         <>
             <form onSubmit={HandleSubmit}>
                 <label htmlFor="question">Question:</label>
-                <input type="text" name="question" placeholder="Your Question" onChange={(e) => {
+                <input type="text" name="question" placeholder="Your Question" className=" border border-slate-500 active:border-slate-400 p-3 rounded-lg" onChange={(e) => {
                     SetQuestion(e.target.value)
                 }} required />
                 {inputFields.map((input, index) => {
@@ -67,12 +67,13 @@ const QuestionForm = () => {
                                 name='option'
                                 placeholder='Option'
                                 value={input.option}
+                                className=" border border-slate-500 active:border-slate-400 p-3 rounded-lg"
                                 onChange={(e) => { HandleFormChange(index, e) }}
                                 required
                             />
                             {//Every poll MUST have atleast 2 options, only remove inputs beyond 2 
                                 index > 1 ?
-                                    <button onClick={() => { RemoveInput(index) }}>Remove</button>
+                                    <button className=" bg-slate-500 hover:bg-slate-400  disabled:bg-slate-300 text-white rounded-lg p-3 m-1" onClick={() => { RemoveInput(index) }}>Remove</button>
                                     :
                                     <></>
 
@@ -80,13 +81,13 @@ const QuestionForm = () => {
                         </div>
                     )
                 })}
-                <button onClick={AddInput} disabled={submitButtonDisabled}>Add Options!</button>
-                <button type="submit" disabled={submitButtonDisabled}>Create Quesiton!</button>
+                <button onClick={AddInput} disabled={submitButtonDisabled} className=" bg-slate-500 hover:bg-slate-400  disabled:bg-slate-300 text-white rounded-lg p-3 m-1">Add Options!</button>
+                <button type="submit" className=" bg-slate-500 hover:bg-slate-400 disabled:bg-slate-300 text-white rounded-lg p-3 m-1"disabled={submitButtonDisabled}>Create Quesiton!</button>
             </form>
             {questionLinkIsHidden ? <></>
                 :
 
-                <button>
+                <button className=" bg-slate-500 hover:bg-slate-400 text-white rounded-lg p-3 m-1 animate-bounce mt-3">
                    <Link href={`/question/${questionLink}`}>Show my Question!</Link>
                 </button>
 

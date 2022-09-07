@@ -4,7 +4,9 @@ import styles from '../styles/Home.module.css'
 import QuestionForm from '../Components/QuestionForm'
 /* 
  
-  possibly refactor the create question fetch cascade using prisma create many with a nested write, (see comments in QuestionForm) 
+  possibly refactor the create question fetch cascade using prisma create many with a nested write, (see comments in QuestionForm)
+  TODO: next SWR can provide real time data fetching and cache invalidation stuff, use that instead of an interval possibly? 
+  ^ https://swr.vercel.app/docs/getting-started
 */
 export default function Home() {
 

@@ -39,6 +39,8 @@ export default function QuestionPage() {
         //cleans up the interval upon demounting the component 
         return (() => {
             clearInterval(Interval)
+            console.log("Cleanup ")
+            
         })
 
 
