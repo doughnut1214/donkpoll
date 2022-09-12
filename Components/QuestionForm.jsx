@@ -55,9 +55,9 @@ const QuestionForm = () => {
 
     return (
         <>
-            <form onSubmit={HandleSubmit}>
-                <label htmlFor="question">Question:</label>
-                <input type="text" name="question" placeholder="Your Question" className=" border border-slate-500 active:border-slate-400 p-3 rounded-lg" onChange={(e) => {
+            <form onSubmit={HandleSubmit} className="mt-3 justify-items-center flex flex-col" >
+                <label htmlFor="question" className=" text-center">Question:</label>
+                <input type="text" name="question" placeholder="Your Question" className="mb-2 border border-slate-500 active:border-slate-400 p-3 rounded-lg" onChange={(e) => {
                     SetQuestion(e.target.value)
                 }} required />
                 {inputFields.map((input, index) => {
@@ -73,7 +73,7 @@ const QuestionForm = () => {
                             />
                             {//Every poll MUST have atleast 2 options, only remove inputs beyond 2 
                                 index > 1 ?
-                                    <button className=" bg-slate-500 hover:bg-slate-400  disabled:bg-slate-300 text-white rounded-lg p-3 m-1" onClick={() => { RemoveInput(index) }}>Remove</button>
+                                    <button className=" bg-slate-500 hover:bg-slate-400  disabled:bg-slate-300 text-white rounded-lg p-3 lg:w-auto w-full" onClick={() => { RemoveInput(index) }}>Remove</button>
                                     :
                                     <></>
 
