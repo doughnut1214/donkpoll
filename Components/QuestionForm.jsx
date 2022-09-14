@@ -40,10 +40,14 @@ const QuestionForm = () => {
                 //Take the data, set the link, show the link, disable form buttons, then post the options (refactor)
                 SetSubmitButtonDisabled(true)
                 SetQuestionLink(data.id)
-                SetQuestionLinkIsHidden(false)
                 fetch("/api/option/" + data.id, {
                     method: 'POST',
                     body: JSON.stringify(inputFields)
+                })
+                .then(()=>{
+                    //only shows the link button if the options have been inserted 
+                    SetQuestionLinkIsHidden(false)
+
                 })
             })
     }
